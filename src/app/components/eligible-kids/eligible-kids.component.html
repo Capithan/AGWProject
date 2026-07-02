@@ -1,0 +1,39 @@
+<div class="eligible-kids-container">
+  <h2>Eligible Kids (Age 10–18)</h2>
+
+  <div *ngIf="errorMessage" class="message error">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading eligible records...
+  </div>
+
+  <div *ngIf="!isLoading" class="table-container">
+    <table *ngIf="eligibleKids.length > 0; else noEligible" class="kids-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Current Age</th>
+          <th>Guardian Name</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kid of eligibleKids" class="table-row">
+          <td>{{ kid.name }}</td>
+          <td>{{ kid.dob }}</td>
+          <td>{{ getAge(kid.dob) }} years</td>
+          <td>{{ kid.guardianName }}</td>
+          <td>{{ kid.address }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noEligible>
+      <p class="no-records">
+        No kids currently in the eligible age range (10–18).
+      </p>
+    </ng-template>
+  </div>
+</div>

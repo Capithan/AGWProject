@@ -1,0 +1,112 @@
+<div class="all-records-container">
+  <h2>All Records</h2>
+
+  <div class="message-container">
+    <div *ngIf="successMessage" class="message success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="message error">{{ errorMessage }}</div>
+  </div>
+
+  <div class="form-toggle">
+    <button (click)="toggleForm()" class="btn btn-primary">
+      {{ showForm ? 'Cancel' : 'Add New Kid' }}
+    </button>
+  </div>
+
+  <div *ngIf="showForm" class="add-form-container">
+    <h3>Add New Kid</h3>
+    <form [formGroup]="addKidForm" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-input"
+          placeholder="Child's name"
+        />
+        <span *ngIf="addKidForm.get('name')?.invalid && addKidForm.get('name')?.touched" class="error-text">
+          {{ getFieldError('name') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input
+          id="dob"
+          type="date"
+          formControlName="dob"
+          class="form-input"
+        />
+        <span *ngIf="addKidForm.get('dob')?.invalid && addKidForm.get('dob')?.touched" class="error-text">
+          {{ getFieldError('dob') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="guardianName">Guardian Name:</label>
+        <input
+          id="guardianName"
+          type="text"
+          formControlName="guardianName"
+          class="form-input"
+          placeholder="Guardian's name"
+        />
+        <span *ngIf="addKidForm.get('guardianName')?.invalid && addKidForm.get('guardianName')?.touched" class="error-text">
+          {{ getFieldError('guardianName') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input
+          id="address"
+          type="text"
+          formControlName="address"
+          class="form-input"
+          placeholder="Physical address"
+        />
+        <span *ngIf="addKidForm.get('address')?.invalid && addKidForm.get('address')?.touched" class="error-text">
+          {{ getFieldError('address') }}
+        </span>
+      </div>
+
+      <button type="submit" class="btn btn-success">Add Kid</button>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table *ngIf="kids.length > 0; else noRecords" class="kids-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Current Age</th>
+          <th>Guardian Name</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kid of kids" class="table-row">
+          <td>{{ kid.name }}</td>
+          <td>{{ kid.dob }}</td>
+          <td>{{ getAge(kid.dob) }} years</td>
+          <td>{{ kid.guardianName }}</td>
+          <td>{{ kid.address }}</td>
+          <td>
+            <button
+              (click)="deleteKid(kid.id, kid.name)"
+              class="btn btn-delete"
+              title="Delete this record"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noRecords>
+      <p class="no-records">No records found. Add a new kid to get started.</p>
+    </ng-template>
+  </div>
+</div>
