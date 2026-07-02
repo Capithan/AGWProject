@@ -3,7 +3,8 @@ import { AllRecordsComponent } from './components/all-records/all-records.compon
 import { EligibleKidsComponent } from './components/eligible-kids/eligible-kids.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/all-records', pathMatch: 'full' },
-  { path: 'all-records', component: AllRecordsComponent },
+  { path: '', component: AllRecordsComponent },
+  { path: 'all', component: AllRecordsComponent },
+  { path: 'all-records', redirectTo: 'all', pathMatch: 'full' },
   { path: 'eligible', component: EligibleKidsComponent },
 ];

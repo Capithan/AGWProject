@@ -53,7 +53,9 @@ const STYLES = `
     border: 1px solid #f5c6cb;
   }
 
-  .form-toggle {
+  .toolbar {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 1rem;
   }
 
@@ -85,6 +87,16 @@ const STYLES = `
     background-color: #2980b9;
   }
 
+  .btn-secondary {
+    background-color: #2c3e50;
+    color: white;
+    width: auto;
+  }
+
+  .btn-secondary:hover {
+    background-color: #1f2d3a;
+  }
+
   .btn-success {
     background-color: #27ae60;
     color: white;
@@ -112,6 +124,13 @@ const STYLES = `
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1.5rem;
+  }
+
+  .form-intro {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #5d6d7e;
+    font-size: 0.95rem;
   }
 
   .form-group {
@@ -218,9 +237,17 @@ const STYLES = `
       padding: 0.75rem;
     }
 
+    .form-intro {
+      font-size: 0.85rem;
+    }
+
     .message {
       padding: 0.6rem 0.75rem;
       font-size: 0.85rem;
+    }
+
+    .toolbar {
+      margin-bottom: 0.75rem;
     }
 
     .btn {
@@ -323,7 +350,6 @@ const STYLES = `
 export class AllRecordsComponent implements OnInit {
   kids: Kid[] = [];
   addKidForm: FormGroup;
-  showForm = false;
   errorMessage = '';
   successMessage = '';
 
@@ -364,15 +390,6 @@ export class AllRecordsComponent implements OnInit {
     return null;
   }
 
-  toggleForm(): void {
-    this.showForm = !this.showForm;
-    if (!this.showForm) {
-      this.addKidForm.reset();
-      this.errorMessage = '';
-      this.successMessage = '';
-    }
-  }
-
   submitForm(): void {
     if (this.addKidForm.invalid) {
       this.errorMessage = 'Please fill in all required fields correctly.';
@@ -392,7 +409,6 @@ export class AllRecordsComponent implements OnInit {
       .then(() => {
         this.successMessage = `${newKid.name} added successfully!`;
         this.addKidForm.reset();
-        this.showForm = false;
         this.loadKids();
         setTimeout(() => (this.successMessage = ''), 3000);
       })
@@ -419,6 +435,42 @@ export class AllRecordsComponent implements OnInit {
 
   getAge(dob: string): number {
     return calculateAge(dob);
+  }
+
+  downloadCsv(): void {
+    if (this.kids.length === 0) {
+      this.errorMessage = 'No records available to download.';
+      return;
+    }
+
+    const headers = ['Name', 'Date of Birth', 'Current Age', 'Guardian Name', 'Address'];
+    const rows = this.kids.map((kid) => [
+      kid.name,
+      kid.dob,
+      String(this.getAge(kid.dob)),
+      kid.guardianName,
+      kid.address,
+    ]);
+
+    this.downloadRowsAsCsv('all-records.csv', headers, rows);
+  }
+
+  private downloadRowsAsCsv(fileName: string, headers: string[], rows: string[][]): void {
+    const csvContent = [headers, ...rows]
+      .map((row) => row.map((value) => this.escapeCsvValue(value)).join(','))
+      .join('\r\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  private escapeCsvValue(value: string): string {
+    return `"${value.replace(/"/g, '""')}"`;
   }
 
   getFieldError(fieldName: string): string {

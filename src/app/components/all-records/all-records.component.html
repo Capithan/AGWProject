@@ -1,19 +1,19 @@
 <div class="all-records-container">
-  <h2>All Records</h2>
+  <h2>Add Kid Record</h2>
 
   <div class="message-container">
     <div *ngIf="successMessage" class="message success">{{ successMessage }}</div>
     <div *ngIf="errorMessage" class="message error">{{ errorMessage }}</div>
   </div>
 
-  <div class="form-toggle">
-    <button (click)="toggleForm()" class="btn btn-primary">
-      {{ showForm ? 'Cancel' : 'Add New Kid' }}
+  <div class="toolbar">
+    <button type="button" class="btn btn-secondary" (click)="downloadCsv()">
+      Download CSV
     </button>
   </div>
 
-  <div *ngIf="showForm" class="add-form-container">
-    <h3>Add New Kid</h3>
+  <div class="add-form-container">
+    <p class="form-intro">Use this form on the landing page to add a new kid record.</p>
     <form [formGroup]="addKidForm" (ngSubmit)="submitForm()">
       <div class="form-group">
         <label for="name">Name:</label>

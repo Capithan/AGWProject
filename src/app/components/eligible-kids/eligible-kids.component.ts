@@ -35,6 +35,39 @@ const STYLES = `
     border: 1px solid #f5c6cb;
   }
 
+  .toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-weight: 500;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    background-color: #2c3e50;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background-color: #1f2d3a;
+  }
+
   .loading {
     text-align: center;
     color: #95a5a6;
@@ -105,6 +138,15 @@ const STYLES = `
 
     .kids-table {
       font-size: 0.85rem;
+    }
+
+    .toolbar {
+      margin-bottom: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
     }
 
     .kids-table th {
@@ -202,5 +244,33 @@ export class EligibleKidsComponent implements OnInit {
 
   getAge(dob: string): number {
     return calculateAge(dob);
+  }
+
+  downloadCsv(): void {
+    if (this.eligibleKids.length === 0) {
+      this.errorMessage = 'No eligible records available to download.';
+      return;
+    }
+
+    const headers = ['Name', 'Date of Birth', 'Current Age', 'Guardian Name', 'Address'];
+    const rows = this.eligibleKids.map((kid) => [
+      kid.name,
+      kid.dob,
+      String(this.getAge(kid.dob)),
+      kid.guardianName,
+      kid.address,
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map((row) => row.map((value) => `"${value.replace(/"/g, '""')}"`).join(','))
+      .join('\r\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'eligible-records.csv';
+    link.click();
+    URL.revokeObjectURL(url);
   }
 }

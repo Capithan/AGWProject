@@ -41,30 +41,32 @@ import { RouterModule, RouterLink } from '@angular/router';
     }
 
     .nav-links {
-      list-style: none;
-      margin: 0;
-      padding: 0;
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
     }
 
-    .nav-links a {
+    .nav-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: white;
       text-decoration: none;
       padding: 0.5rem 0.8rem;
       border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       transition: background-color 0.3s ease;
       font-size: 0.95rem;
       white-space: nowrap;
       cursor: pointer;
+      background: transparent;
     }
 
-    .nav-links a:hover {
+    .nav-button:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .nav-links a.active {
+    .nav-button.active {
       background-color: #3498db;
       font-weight: 600;
     }
@@ -99,7 +101,7 @@ import { RouterModule, RouterLink } from '@angular/router';
         gap: 0.3rem;
       }
 
-      .nav-links a {
+      .nav-button {
         padding: 0.4rem 0.6rem;
         font-size: 0.85rem;
         flex: 1;
@@ -116,7 +118,7 @@ import { RouterModule, RouterLink } from '@angular/router';
         font-size: 1rem;
       }
 
-      .nav-links a {
+      .nav-button {
         padding: 0.4rem 0.4rem;
         font-size: 0.75rem;
       }
@@ -129,13 +131,4 @@ import { RouterModule, RouterLink } from '@angular/router';
 })
 export class AppComponent {
   title = 'Kids Records Management System';
-  currentView: 'entry' | 'all' | 'eligible' = 'entry';
-
-  setView(view: 'entry' | 'all' | 'eligible'): void {
-    this.currentView = view;
-  }
-
-  isActive(view: string): boolean {
-    return this.currentView === view;
-  }
 }

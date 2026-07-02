@@ -1,6 +1,12 @@
 <div class="eligible-kids-container">
   <h2>Eligible Kids (Age 10–18)</h2>
 
+  <div class="toolbar">
+    <button type="button" class="btn btn-secondary" (click)="downloadCsv()">
+      Download CSV
+    </button>
+  </div>
+
   <div *ngIf="errorMessage" class="message error">
     {{ errorMessage }}
   </div>
