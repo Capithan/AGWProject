@@ -10,22 +10,24 @@ const STYLES = `
   .all-records-container {
     background-color: white;
     border-radius: 8px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   h2 {
     color: #2c3e50;
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
+    font-size: 1.5rem;
   }
 
   h3 {
     color: #2c3e50;
     margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 1.1rem;
   }
 
   .message-container {
@@ -36,6 +38,7 @@ const STYLES = `
     padding: 0.75rem 1rem;
     border-radius: 4px;
     font-weight: 500;
+    font-size: 0.95rem;
   }
 
   .message.success {
@@ -51,17 +54,18 @@ const STYLES = `
   }
 
   .form-toggle {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .btn {
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem;
     border: none;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
     font-weight: 500;
+    width: 100%;
   }
 
   .btn:hover {
@@ -93,8 +97,10 @@ const STYLES = `
   .btn-delete {
     background-color: #e74c3c;
     color: white;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+    width: auto;
+    min-width: 70px;
   }
 
   .btn-delete:hover {
@@ -104,8 +110,8 @@ const STYLES = `
   .add-form-container {
     background-color: #ecf0f1;
     border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .form-group {
@@ -114,9 +120,10 @@ const STYLES = `
 
   label {
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
     font-weight: 600;
     color: #2c3e50;
+    font-size: 0.95rem;
   }
 
   .form-input {
@@ -138,12 +145,13 @@ const STYLES = `
   .error-text {
     display: block;
     color: #e74c3c;
-    font-size: 0.85rem;
-    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
   }
 
   .table-container {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    overflow-x: auto;
   }
 
   .kids-table {
@@ -153,6 +161,7 @@ const STYLES = `
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.95rem;
   }
 
   .kids-table thead {
@@ -161,15 +170,17 @@ const STYLES = `
   }
 
   .kids-table th {
-    padding: 1rem;
+    padding: 0.75rem 0.5rem;
     text-align: left;
     font-weight: 600;
     border-bottom: 2px solid #2c3e50;
+    font-size: 0.9rem;
   }
 
   .kids-table td {
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.5rem;
     border-bottom: 1px solid #ecf0f1;
+    word-break: break-word;
   }
 
   .table-row:hover {
@@ -184,25 +195,120 @@ const STYLES = `
     text-align: center;
     color: #95a5a6;
     font-style: italic;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+    font-size: 0.95rem;
   }
 
   @media (max-width: 768px) {
     .all-records-container {
       padding: 1rem;
+      border-radius: 4px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+
+    .add-form-container {
+      padding: 0.75rem;
+    }
+
+    .message {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .btn {
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
     }
 
     .kids-table {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .kids-table th {
+      padding: 0.5rem 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .kids-table td {
+      padding: 0.4rem 0.3rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-delete {
+      padding: 0.3rem 0.4rem;
+      font-size: 0.75rem;
+      min-width: 55px;
+    }
+
+    .form-input {
+      padding: 0.5rem;
+      font-size: 16px;
+    }
+
+    label {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .all-records-container {
+      padding: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      padding: 0.5rem;
+      font-size: 0.85rem;
     }
 
     .kids-table th,
     .kids-table td {
+      padding: 0.3rem 0.2rem;
+      font-size: 0.7rem;
+    }
+
+    .kids-table th {
+      font-size: 0.7rem;
+    }
+
+    .btn-delete {
+      padding: 0.25rem 0.3rem;
+      font-size: 0.65rem;
+      min-width: 50px;
+    }
+
+    .message {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .form-input,
+    label {
+      font-size: 0.9rem;
+    }
+
+    .add-form-container {
       padding: 0.5rem;
     }
 
-    .btn {
-      padding: 0.5rem 1rem;
+    .form-group {
+      margin-bottom: 0.75rem;
     }
   }
 `;
