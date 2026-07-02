@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Kid } from '../../models/kid.model';
+import { Gender, Kid } from '../../models/kid.model';
 import { KidsStorageService } from '../../services/kids-storage.service';
 import { calculateAge } from '../../utils/age-eligibility.util';
 
@@ -216,6 +216,9 @@ const STYLES = `
 })
 export class EligibleKidsComponent implements OnInit {
   eligibleKids: Kid[] = [];
+  filteredEligibleKids: Kid[] = [];
+  readonly genderOptions: Gender[] = ['Male', 'Female', 'Other'];
+  selectedGenderFilter: '' | Gender = '';
   isLoading = false;
   errorMessage = '';
 
@@ -233,6 +236,7 @@ export class EligibleKidsComponent implements OnInit {
     this.kidsStorageService.getEligibleKids()
       .then((kids) => {
         this.eligibleKids = kids;
+        this.applyGenderFilter();
         this.isLoading = false;
       })
       .catch((err) => {
@@ -246,17 +250,34 @@ export class EligibleKidsComponent implements OnInit {
     return calculateAge(dob);
   }
 
+  onGenderFilterChange(value: string): void {
+    this.selectedGenderFilter = value as '' | Gender;
+    this.applyGenderFilter();
+  }
+
+  private applyGenderFilter(): void {
+    if (!this.selectedGenderFilter) {
+      this.filteredEligibleKids = [...this.eligibleKids];
+      return;
+    }
+
+    this.filteredEligibleKids = this.eligibleKids.filter(
+      (kid) => kid.gender === this.selectedGenderFilter
+    );
+  }
+
   downloadCsv(): void {
-    if (this.eligibleKids.length === 0) {
+    if (this.filteredEligibleKids.length === 0) {
       this.errorMessage = 'No eligible records available to download.';
       return;
     }
 
-    const headers = ['Name', 'Date of Birth', 'Current Age', 'Guardian Name', 'Address'];
-    const rows = this.eligibleKids.map((kid) => [
+    const headers = ['Name', 'Date of Birth', 'Current Age', 'Gender', 'Guardian Name', 'Address'];
+    const rows = this.filteredEligibleKids.map((kid) => [
       kid.name,
       kid.dob,
       String(this.getAge(kid.dob)),
+      kid.gender ?? 'Unspecified',
       kid.guardianName,
       kid.address,
     ]);

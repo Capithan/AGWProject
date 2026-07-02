@@ -43,6 +43,21 @@
       </div>
 
       <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select
+          id="gender"
+          formControlName="gender"
+          class="form-input"
+        >
+          <option value="" disabled>Select gender</option>
+          <option *ngFor="let option of genderOptions" [value]="option">{{ option }}</option>
+        </select>
+        <span *ngIf="addKidForm.get('gender')?.invalid && addKidForm.get('gender')?.touched" class="error-text">
+          {{ getFieldError('gender') }}
+        </span>
+      </div>
+
+      <div class="form-group">
         <label for="guardianName">Guardian Name:</label>
         <input
           id="guardianName"
@@ -81,6 +96,7 @@
           <th>Name</th>
           <th>Date of Birth</th>
           <th>Current Age</th>
+          <th>Gender</th>
           <th>Guardian Name</th>
           <th>Address</th>
           <th>Action</th>
@@ -91,6 +107,7 @@
           <td>{{ kid.name }}</td>
           <td>{{ kid.dob }}</td>
           <td>{{ getAge(kid.dob) }} years</td>
+          <td>{{ kid.gender || 'Unspecified' }}</td>
           <td>{{ kid.guardianName }}</td>
           <td>{{ kid.address }}</td>
           <td>

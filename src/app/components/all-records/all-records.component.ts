@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Kid } from '../../models/kid.model';
+import { Gender, Kid } from '../../models/kid.model';
 import { KidsStorageService } from '../../services/kids-storage.service';
 import { calculateAge } from '../../utils/age-eligibility.util';
 import { v4 as uuidv4 } from 'uuid';
@@ -349,6 +349,7 @@ const STYLES = `
 })
 export class AllRecordsComponent implements OnInit {
   kids: Kid[] = [];
+  readonly genderOptions: Gender[] = ['Male', 'Female', 'Other'];
   addKidForm: FormGroup;
   errorMessage = '';
   successMessage = '';
@@ -360,6 +361,7 @@ export class AllRecordsComponent implements OnInit {
     this.addKidForm = this.fb.group({
       name: ['', [Validators.required]],
       dob: ['', [Validators.required, this.dobNotInFutureValidator.bind(this)]],
+      gender: ['', [Validators.required]],
       guardianName: ['', [Validators.required]],
       address: ['', [Validators.required]],
     });
@@ -401,6 +403,7 @@ export class AllRecordsComponent implements OnInit {
       id: uuidv4(),
       name: formValue.name,
       dob: formValue.dob,
+      gender: formValue.gender,
       guardianName: formValue.guardianName,
       address: formValue.address,
     };
@@ -443,11 +446,12 @@ export class AllRecordsComponent implements OnInit {
       return;
     }
 
-    const headers = ['Name', 'Date of Birth', 'Current Age', 'Guardian Name', 'Address'];
+    const headers = ['Name', 'Date of Birth', 'Current Age', 'Gender', 'Guardian Name', 'Address'];
     const rows = this.kids.map((kid) => [
       kid.name,
       kid.dob,
       String(this.getAge(kid.dob)),
+      kid.gender ?? 'Unspecified',
       kid.guardianName,
       kid.address,
     ]);

@@ -2,6 +2,15 @@
   <h2>Eligible Kids (Age 10–18)</h2>
 
   <div class="toolbar">
+    <select
+      class="btn btn-secondary"
+      [value]="selectedGenderFilter"
+      (change)="onGenderFilterChange($any($event.target).value)"
+      aria-label="Filter eligible kids by gender"
+    >
+      <option value="">All Genders</option>
+      <option *ngFor="let option of genderOptions" [value]="option">{{ option }}</option>
+    </select>
     <button type="button" class="btn btn-secondary" (click)="downloadCsv()">
       Download CSV
     </button>
@@ -16,21 +25,23 @@
   </div>
 
   <div *ngIf="!isLoading" class="table-container">
-    <table *ngIf="eligibleKids.length > 0; else noEligible" class="kids-table">
+    <table *ngIf="filteredEligibleKids.length > 0; else noEligible" class="kids-table">
       <thead>
         <tr>
           <th>Name</th>
           <th>Date of Birth</th>
           <th>Current Age</th>
+          <th>Gender</th>
           <th>Guardian Name</th>
           <th>Address</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let kid of eligibleKids" class="table-row">
+        <tr *ngFor="let kid of filteredEligibleKids" class="table-row">
           <td>{{ kid.name }}</td>
           <td>{{ kid.dob }}</td>
           <td>{{ getAge(kid.dob) }} years</td>
+          <td>{{ kid.gender || 'Unspecified' }}</td>
           <td>{{ kid.guardianName }}</td>
           <td>{{ kid.address }}</td>
         </tr>
