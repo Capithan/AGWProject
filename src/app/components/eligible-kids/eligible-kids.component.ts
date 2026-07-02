@@ -8,16 +8,17 @@ const STYLES = `
   .eligible-kids-container {
     background-color: white;
     border-radius: 8px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   h2 {
     color: #2c3e50;
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-bottom: 2px solid #27ae60;
     padding-bottom: 0.5rem;
+    font-size: 1.5rem;
   }
 
   .message {
@@ -25,6 +26,7 @@ const STYLES = `
     border-radius: 4px;
     font-weight: 500;
     margin-bottom: 1rem;
+    font-size: 0.95rem;
   }
 
   .message.error {
@@ -36,12 +38,13 @@ const STYLES = `
   .loading {
     text-align: center;
     color: #95a5a6;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     font-style: italic;
   }
 
   .table-container {
     margin-top: 1rem;
+    overflow-x: auto;
   }
 
   .kids-table {
@@ -51,6 +54,7 @@ const STYLES = `
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.95rem;
   }
 
   .kids-table thead {
@@ -59,15 +63,17 @@ const STYLES = `
   }
 
   .kids-table th {
-    padding: 1rem;
+    padding: 0.75rem 0.5rem;
     text-align: left;
     font-weight: 600;
     border-bottom: 2px solid #1e8449;
+    font-size: 0.9rem;
   }
 
   .kids-table td {
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.5rem;
     border-bottom: 1px solid #ecf0f1;
+    word-break: break-word;
   }
 
   .table-row:hover {
@@ -82,21 +88,79 @@ const STYLES = `
     text-align: center;
     color: #95a5a6;
     font-style: italic;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+    font-size: 0.95rem;
   }
 
   @media (max-width: 768px) {
     .eligible-kids-container {
       padding: 1rem;
+      border-radius: 4px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
     }
 
     .kids-table {
+      font-size: 0.85rem;
+    }
+
+    .kids-table th {
+      padding: 0.5rem 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .kids-table td {
+      padding: 0.4rem 0.3rem;
+      font-size: 0.8rem;
+    }
+
+    .message {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .loading {
+      padding: 1rem 0.75rem;
       font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .eligible-kids-container {
+      padding: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .kids-table th,
     .kids-table td {
+      padding: 0.3rem 0.2rem;
+      font-size: 0.7rem;
+    }
+
+    .kids-table th {
+      font-size: 0.7rem;
+    }
+
+    .message {
       padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .loading {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .no-records {
+      padding: 1rem 0.5rem;
+      font-size: 0.8rem;
     }
   }
 `;
