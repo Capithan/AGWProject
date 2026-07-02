@@ -57,6 +57,7 @@ import { RouterModule, RouterLink } from '@angular/router';
       transition: background-color 0.3s ease;
       font-size: 0.95rem;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     .nav-links a:hover {
@@ -128,4 +129,13 @@ import { RouterModule, RouterLink } from '@angular/router';
 })
 export class AppComponent {
   title = 'Kids Records Management System';
+  currentView: 'entry' | 'all' | 'eligible' = 'entry';
+
+  setView(view: 'entry' | 'all' | 'eligible'): void {
+    this.currentView = view;
+  }
+
+  isActive(view: string): boolean {
+    return this.currentView === view;
+  }
 }
