@@ -18,7 +18,7 @@ import { RouterModule, RouterLink } from '@angular/router';
     .navbar {
       background-color: #2c3e50;
       color: white;
-      padding: 1rem 0;
+      padding: 1rem 0.5rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
@@ -29,12 +29,15 @@ import { RouterModule, RouterLink } from '@angular/router';
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .app-title {
       margin: 0;
       font-size: 1.5rem;
       font-weight: 600;
+      flex-shrink: 0;
     }
 
     .nav-links {
@@ -42,15 +45,18 @@ import { RouterModule, RouterLink } from '@angular/router';
       margin: 0;
       padding: 0;
       display: flex;
-      gap: 2rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
       color: white;
       text-decoration: none;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.8rem;
       border-radius: 4px;
       transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
@@ -67,21 +73,55 @@ import { RouterModule, RouterLink } from '@angular/router';
       max-width: 1200px;
       margin: 0 auto;
       width: 100%;
-      padding: 2rem 1rem;
+      padding: 1rem;
     }
 
     @media (max-width: 768px) {
-      .nav-content {
-        flex-direction: column;
-        gap: 1rem;
+      .navbar {
+        padding: 0.75rem 0.5rem;
       }
 
-      .nav-links {
-        gap: 1rem;
+      .nav-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0 0.5rem;
       }
 
       .app-title {
         font-size: 1.2rem;
+        width: 100%;
+      }
+
+      .nav-links {
+        width: 100%;
+        gap: 0.3rem;
+      }
+
+      .nav-links a {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+        flex: 1;
+        text-align: center;
+      }
+
+      .main-content {
+        padding: 0.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .app-title {
+        font-size: 1rem;
+      }
+
+      .nav-links a {
+        padding: 0.4rem 0.4rem;
+        font-size: 0.75rem;
+      }
+
+      .main-content {
+        padding: 0.5rem;
       }
     }
   `],
