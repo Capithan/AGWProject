@@ -146,6 +146,6 @@ export class KidsStorageService {
   }
 
   public getAllKids$(): Observable<Kid[]> {
-    return this.kids$.asObservable();
+    return this.kids$;
   }
 }
